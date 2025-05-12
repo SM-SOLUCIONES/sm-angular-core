@@ -1,0 +1,38 @@
+<div [formGroup]="form" style="width: 100%">
+  <div>
+    <label [for]="nameFormControl">{{ labelValue }}:</label>
+  </div>
+  <div>
+    <input
+      [type]="type"
+      [id]="nameFormControl"
+      [formControlName]="nameFormControl"
+      [class]="style"
+    />
+  </div>
+
+  @if (form.controls[nameFormControl].invalid &&
+  form.controls[nameFormControl].touched) {
+  <div class="text-danger">El campo {{ labelValue }} es obligatorio</div>
+  }
+</div>
+<!-- type = tipo de input , number , text etc -->
+<!-- id se usa para conectar el for del label con el input -->
+<!-- formControlName es para el uso del formulario reactivo, aca se declara el nombre al cual hace referencia en el formulario -->
+<!-- formgroup es el nombre del formulario del componente padre -->
+<!-- ejemplo de uso :   
+ 
+<form [formGroup]="hcForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <app-sm-input
+      [type]="'text'"
+      [nameFormControl]="'numeroInforme'"
+      [labelValue]="'Número de Informe'"
+      [form]="hcForm"
+    ></app-sm-input>
+  </div>
+
+
+
+
+-->

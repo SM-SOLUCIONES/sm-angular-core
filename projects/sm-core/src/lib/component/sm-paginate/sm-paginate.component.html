@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-around w-100 paginate-footer">
+  <div *ngIf="paginate.showSizeSelector" class="size-selector">
+    <ng-select
+      [items]="itemsSize"
+      bindLabel="size"
+      bindValue="size"
+      [(ngModel)]="paginate.size"
+      (ngModelChange)="setSize($event)"
+      [clearable]="false"
+      [searchable]="true"
+    >
+    </ng-select>
+  </div>
+
+  <ngb-pagination
+    class="d-flex outline justify-content-center"
+    (pageChange)="setPage($event)"
+    [collectionSize]="paginate.data.totalElements"
+    [(page)]="paginate.page"
+    [maxSize]="3"
+    [pageSize]="paginate.size"
+  ></ngb-pagination>
+
+  <div *ngIf="paginate.showSizeSelector" class="size-selector"></div>
+</div>

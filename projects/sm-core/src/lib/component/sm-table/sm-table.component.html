@@ -1,0 +1,39 @@
+<div class="table-responsive">
+  <table
+    class="table table-bordered"
+    style="border: rgba(43, 43, 44, 0.178); width: 100%"
+  >
+    <!-- Encabezado -->
+    <thead class="table">
+      <tr>
+        <!-- Mostrar los valores de dataHeader como encabezados -->
+        <th *ngFor="let header of dataHeader">
+          {{ header.name }}
+        </th>
+        @if (dataActions.length) {
+        <th>Acciones</th>
+        }
+      </tr>
+    </thead>
+
+    <!-- Cuerpo de la tabla -->
+    <tbody class="textTablasize">
+      <tr *ngFor="let row of dataBody">
+        <td *ngFor="let header of dataHeader">
+          {{ parseData(row, header) }}
+        </td>
+        @if (dataActions.length) {
+        <td class="d-flex justify-content-center align-items-center">
+          <div
+            *ngFor="let action of dataActions"
+            (click)="action.func(row)"
+            style="cursor: pointer"
+          >
+            <i [class]="action.icon"></i>
+          </div>
+        </td>
+        }
+      </tr>
+    </tbody>
+  </table>
+</div>

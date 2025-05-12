@@ -1,0 +1,61 @@
+.navegator {
+  box-shadow: 6px 0px 20px 0 rgba(24, 31, 22, 0.849);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 52px; /* Puedes ajustar el porcentaje inicial según tus necesidades */
+  max-width: max-content;
+  overflow: hidden;
+  transition: width 0.5s;
+  height: 750px;
+}
+
+@media only screen and (min-width: 780px) {
+  .only-desktop {
+    display: inherit !important;
+  }
+
+  .only-mobile {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 780px) {
+  .only-mobile {
+    display: inherit !important;
+  }
+
+  .only-desktop {
+    display: none !important;
+  }
+}
+
+.textos {
+  display: block;
+  white-space: nowrap;
+}
+
+.navegator:hover {
+  width: 100%;
+}
+
+.boton i {
+  margin: 1rem 1rem 0 1rem;
+}
+
+.boton:hover {
+  transition: 1000ms;
+  background-color: rgba(0, 0, 0, 0.275);
+}
+.rojo {
+  color: red;
+}
+.blanco {
+  color: white;
+}
+.naranja {
+  color: rgb(255, 166, 0);
+}
+.verde {
+  color: green;
+}

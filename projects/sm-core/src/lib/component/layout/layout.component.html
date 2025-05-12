@@ -1,0 +1,25 @@
+<div class="d-flex" style="padding: 0; margin: 0">
+  <div class="navb">
+    <app-vertical-navbar></app-vertical-navbar>
+  </div>
+  <sm-loading></sm-loading>
+  <div class="contenedor-router-footer" style="margin-left: 53px">
+    <div class="contenedor-router mb-5">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <footer class="footer text-center w-100 mb-2">
+    <p class="copyright clearfix m-0" style="color: #efdeff !important">
+      {{ formatearFecha(currentDate) }} &copy;
+      <a
+        id="pixinventLink"
+        class="empresa"
+        style="color: #efdeff !important"
+        [href]="config.urlEmpresa"
+        target="_blank"
+        >{{ config.empresa }}</a
+      >
+      <span> | Versión: 1.1.1</span>
+    </p>
+  </footer>
+</div>

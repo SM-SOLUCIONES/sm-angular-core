@@ -1,0 +1,75 @@
+@import "../../scss/utils.scss";
+thead {
+  border: rgba(190, 6, 6, 0) !important;
+}
+
+table tr th {
+  color: white !important;
+  background-color: rgba(17, 17, 28) !important;
+  box-shadow: 0px 0px 2px 0px rgb(0 0 0 / 51%) !important;
+  border: rgba(255, 255, 255, 0);
+}
+
+table tr td {
+  color: white !important;
+  background-color: $colorBodyTabla !important;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: rgba(
+    43,
+    43,
+    44,
+    0.1
+  ); /* Color más claro para las filas impares */
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: rgba(17, 17, 28, 0.709);
+  /* Color más oscuro para las filas pares */
+}
+
+.table th {
+  background-color: rgba(31, 30, 79, 0.785); /* Fondo del encabezado */
+  color: white; /* Color de texto blanco en los encabezados */
+}
+
+.table td {
+  line-height: 1.8; /* Ajuste del interlineado */
+}
+.tamanioBtn {
+  width: 9rem;
+  min-width: 80px; /* El botón no será más pequeño que 100px */
+  max-width: 150px;
+}
+@media (max-width: 576px) {
+  .tamanioBtn {
+    height: 40px; /* Reduce la altura en pantallas pequeñas */
+    font-size: 14px; /* Ajusta el tamaño de la fuente */
+  }
+}
+@media only screen and (min-width: 780px) {
+  .only-desktop {
+    display: inherit !important;
+  }
+  .textTablasize {
+    font-size: 1rem !important;
+  }
+
+  .only-mobile {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 780px) {
+  .only-mobile {
+    display: inherit !important;
+  }
+  .textTablasize {
+    font-size: small !important;
+  }
+
+  .only-desktop {
+    display: none !important;
+  }
+}

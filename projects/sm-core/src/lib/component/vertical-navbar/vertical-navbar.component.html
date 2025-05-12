@@ -1,0 +1,58 @@
+<div
+  class="navegator min-vh-100 d-flex flex-column justify-content-between"
+  style="background-color: rgba(17, 17, 28)"
+>
+  <div class="d-flex flex-column">
+    <br />
+
+    <div class="d-flex align-item-center">
+      <div class="ms-3 d-flex align-items-center">
+        <div>
+          <i class="fa-regular fa-user fa-xl rojo"></i>
+        </div>
+
+        <div class="ms-4">
+          @if ( authService.user) {
+          <div>
+            <span style="font-size: medium">
+              <strong>{{ authService.user.nombre }}</strong>
+            </span>
+          </div>
+          <span style="font-size: small">
+            @for (permiso of authService.user.permisos; track $index) {
+            {{ permiso }}
+            }
+          </span>
+          }
+        </div>
+      </div>
+
+      <span
+        class="textos me-3 ms-2 mt-1"
+        style="text-transform: uppercase; letter-spacing: 2px; font-weight: 400"
+        >{{ config.nombre }}</span
+      >
+    </div>
+    <br />
+    <ng-template ngFor let-navbar [ngForOf]="navbarList">
+      @if (navbar.roles && authService.validRol(navbar.roles)) {
+      <div
+        [routerLink]="navbar.path"
+        class="boton d-flex align-items-end click pb-3"
+      >
+        <i [class]="navbar.icon"></i>
+        <span class="textos me-5 ms-2" style="margin-bottom: -5px">
+          {{ navbar.title }}
+        </span>
+      </div>
+      }
+    </ng-template>
+
+    <div (click)="salir()" class="boton d-flex click pb-3">
+      <div class="d-flex">
+        <i class="fa-solid fa-right-from-bracket click"></i>
+        <span class="textos me-5 ms-1 mt-3">Salir</span>
+      </div>
+    </div>
+  </div>
+</div>
