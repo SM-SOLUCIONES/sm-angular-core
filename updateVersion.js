@@ -15,7 +15,7 @@ if (!fs.existsSync(versionFilePath)) {
 let packageData;
 try {
     packageData = JSON.parse(fs.readFileSync(versionFilePath, 'utf8'));
-    console.log('Contenido actual de package.json:', packageData); // Verificación
+    // console.log('Contenido actual de package.json:', packageData); // Verificación
 } catch (error) {
     console.error('Error al leer el archivo package.json:', error);
     process.exit(1);
