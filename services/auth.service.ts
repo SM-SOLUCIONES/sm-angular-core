@@ -7,13 +7,11 @@ import { catchError, from, map, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { AccessToken } from '../models/AccessToken.model';
 import Swal from 'sweetalert2';
-import { AlertService } from '../../src/app/services/alert.service';
-import { UsuarioRemitente } from '../../src/app/models/UsuarioRemitente.model';
+import { AlertService } from './alert.service';
 
 @Injectable()
 export class AuthService {
   public user: User | undefined;
-  public remitentes: UsuarioRemitente[] = [];
   public enviroments = env;
   public awaitUser: boolean = false;
   constructor(
@@ -22,7 +20,6 @@ export class AuthService {
     private alertService: AlertService
   ) {
     this.getUsuarioActual();
-    this.getMisRemitentes();
   }
 
   async login(user: string, pass: string) {
@@ -33,7 +30,6 @@ export class AuthService {
       );
 
       // Si el login es exitoso y los datos son correctos
-      console.log('loginres', loginRes);
       if (loginRes.data) {
         localStorage.setItem('access_token', JSON.stringify(loginRes.data));
         this.getUsuarioActual();
@@ -48,7 +44,6 @@ export class AuthService {
         title: `Error al comunicarse con el servidor`,
         text: error || '',
       });
-      // throw new Error('Error al comunicarse con el servidor'); // Propaga el error aquí
     }
     return false;
   }
@@ -62,7 +57,6 @@ export class AuthService {
 
     if (usuaioRes.data) {
       this.user = usuaioRes.data;
-      // console.log('usuario actual', this.user);
       this.awaitUser = true;
       return this.user;
     } else {
@@ -88,22 +82,6 @@ export class AuthService {
   async validRolAwait(roles: string | string[]): Promise<boolean> {
     await this.esperarUser();
     return this.validRol(roles);
-  }
-
-  async getMisRemitentes() {
-    if (!this.getToken()) return;
-
-    const data: HttpData = await this.dataService.httpFunction(
-      'REMITENTE_MIOS'
-    );
-
-    if (data.data) {
-      this.remitentes = data.data;
-      return this.user;
-    } else {
-      this.alertService.dataError('mis remitentes', data);
-      return;
-    }
   }
 
   getToken(): AccessToken | null {

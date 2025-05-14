@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 // const execSync = require('child_process').execSync; // Ya no necesitamos esto
 
-const archivo = 'projects\\sm-core\\package.json';
+const archivo = 'package.json';
 const versionFilePath = path.join(__dirname, archivo);
 
 // Verificar si el archivo package.json existe
