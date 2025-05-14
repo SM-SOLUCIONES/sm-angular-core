@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { SmLoadingComponent } from '../sm-loading/sm-loading.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { VerticalNavbarComponent } from '../vertical-navbar/vertical-navbar.component';
-import { config } from '../../../config';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../services/data.services';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { EnviromentService } from '../../services/enviroment.service';
+import { ConfigModel } from '../../models/Config.model';
 
 @Component({
   selector: 'app-layout',
@@ -16,7 +17,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     RouterOutlet,
     VerticalNavbarComponent,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [AuthService, DataService, HttpClient],
   templateUrl: './layout.component.html',
@@ -24,14 +25,25 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 })
 export class LayoutComponent {
   currentDate: Date = new Date();
-  config: any = config;
+  version: string | undefined;
+  config: ConfigModel | undefined;
 
-  constructor(private router: Router) {
-    // Verifica si el usuario está logueado
-    /*    if (window.location.pathname !== 'public/login' && !user) {
-      this.router.navigate(['public/login']); // Si no está logueado, redirige al login
-    } */
+  constructor(
+    private router: Router,
+    private enviromentService: EnviromentService
+  ) {
+    this.getEnv();
   }
+
+  async getEnv() {
+    this.version = await this.enviromentService.getVersion();
+    if (!this.version) throw new Error('No se encontró el archivo de version');
+
+    this.config = await this.enviromentService.getConfig();
+    if (!this.config)
+      throw new Error('No se encontró el archivo de configuración');
+  }
+
   formatearFecha(fecha: Date): string {
     // Obtener el día, mes y año
     let dia: number = fecha.getDate();

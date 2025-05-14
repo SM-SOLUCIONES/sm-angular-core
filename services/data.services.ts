@@ -4,18 +4,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RoutesModel } from './../models/Routes.model';
-import { env } from './../../env';
-import { routes } from '../../routes';
 import { HttpData } from '../models/HttpData.model';
 import { AccessToken } from '../models/AccessToken.model';
+import { EnviromentService } from './enviroment.service';
 
 @Injectable()
 export class DataService {
   private retry: number = 0;
-  private routes: { [key: string]: RoutesModel } = routes;
-  public enviroments = env;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private enviromentService: EnviromentService
+  ) {}
 
   httpFunction(
     routeName: string,
@@ -23,6 +23,11 @@ export class DataService {
     parameters?: { [key: string]: string }
   ): Promise<HttpData> {
     return new Promise(async (resolve, reject) => {
+      const routes = await this.enviromentService.getRoutes();
+      if (!routes) throw new Error('No se encontraron las rutas');
+      const env = await this.enviromentService.getEnv();
+      if (!env) throw new Error('No se encontró el env');
+
       const route = routes[routeName];
       let url = env.server + route.url;
 
@@ -81,12 +86,12 @@ export class DataService {
       // Suscripción al observable
       observable.subscribe(
         (data) => {
-          const res = new HttpData(this.getRouteName(route), route, data, null);
+          const res = new HttpData(this.getRouteName(route, routes), route, data, null);
           resolve(res);
         },
         (error) => {
           const res = new HttpData(
-            this.getRouteName(route),
+            this.getRouteName(route, routes),
             route,
             null,
             error
@@ -97,10 +102,10 @@ export class DataService {
     });
   }
 
-  getRouteName(route: RoutesModel): string {
+  getRouteName(route: RoutesModel, routes: { [key: string]: RoutesModel }): string {
     const json = JSON.stringify(route);
-    for (const name of Object.keys(this.routes)) {
-      if (JSON.stringify(this.routes[name]) === json) {
+    for (const name of Object.keys(routes)) {
+      if (JSON.stringify(routes[name]) === json) {
         return name;
       }
     }

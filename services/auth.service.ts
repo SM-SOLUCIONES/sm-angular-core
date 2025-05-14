@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/User.model';
-import { env } from '../../env';
 import { DataService } from './data.services';
 import { HttpData } from '../models/HttpData.model';
 import { catchError, from, map, Observable, of } from 'rxjs';
@@ -12,12 +11,11 @@ import { AlertService } from './alert.service';
 @Injectable()
 export class AuthService {
   public user: User | undefined;
-  public enviroments = env;
   public awaitUser: boolean = false;
   constructor(
     private dataService: DataService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
   ) {
     this.getUsuarioActual();
   }

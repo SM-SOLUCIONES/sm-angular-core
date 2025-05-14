@@ -9,6 +9,7 @@
     </div>
   </div>
   <footer class="footer text-center w-100 mb-2">
+    @if (config) {
     <p class="copyright clearfix m-0" style="color: #efdeff !important">
       {{ formatearFecha(currentDate) }} &copy;
       <a
@@ -19,7 +20,8 @@
         target="_blank"
         >{{ config.empresa }}</a
       >
-      <span> | Versión: 1.1.1</span>
+      <span> | Versión: {{ version }}</span>
     </p>
+    }
   </footer>
 </div>
