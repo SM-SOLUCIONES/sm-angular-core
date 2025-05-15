@@ -3,5 +3,8 @@
     "dest": "dist",
     "lib": {
         "entryFile": "index.ts"
-    }
+    },
+    "assets": [
+        "scss/**/*"
+    ]
 }

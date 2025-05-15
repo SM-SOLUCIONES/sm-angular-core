@@ -37,11 +37,12 @@ export class LayoutComponent {
 
   async getEnv() {
     this.version = await this.enviromentService.getVersion();
-    if (!this.version) throw new Error('No se encontró el archivo de version');
+    if (!this.version)
+      throw new Error('No se encontró el archivo de version | getEnv');
 
     this.config = await this.enviromentService.getConfig();
     if (!this.config)
-      throw new Error('No se encontró el archivo de configuración');
+      throw new Error('No se encontró el archivo de configuración | getEnv');
   }
 
   formatearFecha(fecha: Date): string {

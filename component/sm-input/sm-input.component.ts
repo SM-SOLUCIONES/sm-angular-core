@@ -1,20 +1,64 @@
-import { Component, Input } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, Input, forwardRef } from '@angular/core';
+import {
+  FormGroup,
+  ReactiveFormsModule,
+  NG_VALUE_ACCESSOR,
+  ControlValueAccessor,
+  FormsModule,
+} from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-sm-input',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormsModule, NgSelectModule],
   templateUrl: './sm-input.component.html',
   styleUrl: './sm-input.component.scss',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SmInputComponent),
+      multi: true,
+    },
+  ],
 })
-export class SmInputComponent {
+export class SmInputComponent implements ControlValueAccessor {
   @Input() type: string = 'text';
-  @Input() labelValue: string = 'NombreLabel';
+  @Input() label: string = 'texto';
   @Input() nameFormControl: string = '';
   @Input() style: string = 'formbasic';
-  @Input() form: FormGroup;
-  constructor() {
-    this.form = new FormGroup({});
+  @Input() form?: FormGroup;
+  @Input() items: any[] = []; // Datos para el select
+  @Input() bindLabel: string = 'label'; // Propiedad a mostrar en el select
+  @Input() bindValue: string = 'value'; // Propiedad para el valor del select
+
+  value: any = '';
+  disabled: boolean = false;
+  
+  onChange = (_: any) => {};
+  onTouched = () => {};
+
+  constructor() {}
+
+  writeValue(value: any): void {
+    this.value = value;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  onInputChange(event: any): void {
+    this.value = event.target.value;
+    this.onChange(this.value);
+    this.onTouched();
   }
 }

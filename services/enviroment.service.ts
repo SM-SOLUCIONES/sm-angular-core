@@ -6,7 +6,7 @@ import { NavbarRoute } from '../models/NavbarRoute';
 import { ConfigModel } from '../models/Config.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EnviromentService {
   private env: EnviromentModel | undefined;
@@ -14,6 +14,7 @@ export class EnviromentService {
   private navbar: NavbarRoute[] | undefined;
   private config: ConfigModel | undefined;
   private version: string | undefined;
+  private debug: boolean = false;
 
   setEnviroment(
     env: EnviromentModel,
@@ -21,7 +22,26 @@ export class EnviromentService {
     navbar: NavbarRoute[],
     config: ConfigModel,
     version: string,
+    debug: boolean = false
   ) {
+    this.debug = debug;
+
+    if (this.debug) {
+      console.log(
+        'setEnviroment',
+        'env:',
+        env,
+        'routes:',
+        routes,
+        'navbar:',
+        navbar,
+        'config:',
+        config,
+        'version:',
+        version
+      );
+    }
+
     this.env = env;
     this.routes = routes;
     this.navbar = navbar;
@@ -50,10 +70,14 @@ export class EnviromentService {
   }
 
   async getVar(data: any, nombre: string): Promise<any> {
+    if (this.debug) console.log('getVar', nombre);
+
     const startTime = Date.now();
     const timeout = 10000;
 
     while (data === undefined) {
+      if (this.debug) console.log('data undefined');
+
       if (Date.now() - startTime >= timeout) {
         await Swal.fire({
           icon: 'error',
@@ -66,6 +90,7 @@ export class EnviromentService {
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
 
+    if (this.debug) console.log('data', data);
     return data;
   }
 }

@@ -10,5 +10,15 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./sm-loading.component.scss'],
 })
 export class SmLoadingComponent {
+  @Input() localName: string = 'global'; // Si es "global" si usa para validar todas las variables globales
+
   constructor(public loadingService: LoadingService) {}
+
+  comprobarEstado(): boolean {
+    if (this.localName == 'global') {
+      return this.loadingService.comprobarGlobal();
+    } else {
+      return this.loadingService.comprobarLocal(this.localName);
+    }
+  }
 }

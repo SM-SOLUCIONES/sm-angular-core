@@ -22,7 +22,6 @@ export class VerticalNavbarComponent {
   filteredNavbarList: NavbarRoute[] = [];
   constructor(
     public authService: AuthService,
-    private router: Router,
     private enviromentService: EnviromentService
   ) {
     this.checkScreenSize();
@@ -44,21 +43,22 @@ export class VerticalNavbarComponent {
     this.updateNavbarList();
   }
 
-  updateNavbarList() {
-    if (!this.config)
-      throw new Error('No se encontró el archivo de configuración');
-    if (!this.navbarList)
-      throw new Error('No se encontró el archivo de navbars');
+  async updateNavbarList() {
+    var navbarList = await this.enviromentService.getNavbar();
+    if (!navbarList)
+      throw new Error(
+        'No se encontró el archivo de navbars | updateNavbarList'
+      );
 
     if (this.isMobile) {
       // Filtrar las rutas solo si la pantalla es menor a 600px
-      this.filteredNavbarList = this.navbarList.filter(
+      this.filteredNavbarList = navbarList.filter(
         (route) => route.mobile == true
       );
       this.navbarList = this.filteredNavbarList;
     } else {
       // Si la pantalla es mayor o igual a 600px, mostrar todas las rutas
-      this.filteredNavbarList = this.navbarList;
+      this.filteredNavbarList = navbarList;
       this.navbarList = this.filteredNavbarList;
     }
   }
