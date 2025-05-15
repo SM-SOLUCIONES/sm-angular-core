@@ -8,7 +8,9 @@ import { AccessToken } from '../models/AccessToken.model';
 import Swal from 'sweetalert2';
 import { AlertService } from './alert.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
   public user: User | undefined;
   public awaitUser: boolean = false;

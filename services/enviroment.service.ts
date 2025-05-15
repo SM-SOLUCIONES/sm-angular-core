@@ -5,7 +5,9 @@ import { RoutesModel } from '../models/Routes.model';
 import { NavbarRoute } from '../models/NavbarRoute';
 import { ConfigModel } from '../models/Config.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class EnviromentService {
   private env: EnviromentModel | undefined;
   private routes: { [key: string]: RoutesModel } | undefined;

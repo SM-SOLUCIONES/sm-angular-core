@@ -8,7 +8,9 @@ import { HttpData } from '../models/HttpData.model';
 import { AccessToken } from '../models/AccessToken.model';
 import { EnviromentService } from './enviroment.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DataService {
   private retry: number = 0;
 

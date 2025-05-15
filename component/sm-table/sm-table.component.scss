@@ -1,4 +1,5 @@
-@import "../../scss/utils.scss";
+@use "../../scss/utils.scss" as *;
+
 thead {
   border: rgba(190, 6, 6, 0) !important;
 }

@@ -12,6 +12,7 @@ import { PaginateConfigModel } from '../../models/PaginateConfig.model';
 import { FunctionService } from '../../services/function.services';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-sm-paginate',
   standalone: true,

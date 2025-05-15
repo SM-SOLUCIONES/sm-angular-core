@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { formatCurrency, registerLocaleData } from '@angular/common';
-import cloneDeep from 'lodash/cloneDeep';
 import localeEsAr from '@angular/common/locales/es-AR';
+import { cloneDeep } from 'lodash';
+
 registerLocaleData(localeEsAr);
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FunctionService {
   public yesNoLst: any = [
     { nombre: 'No', id: 0 },
