@@ -1,10 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectComponent } from '@ng-select/ng-select';
@@ -14,7 +8,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-sm-paginate',
+  selector: 'sm-paginate',
   standalone: true,
   imports: [NgbPaginationModule, NgSelectComponent, FormsModule, CommonModule],
   providers: [FunctionService],
@@ -25,11 +19,12 @@ export class SmPaginateComponent {
   @Input() paginate: PaginateConfigModel = new PaginateConfigModel();
   @Output() setPageEvent: EventEmitter<any> = new EventEmitter();
   itemsSize: any[] = [{ size: 10 }, { size: 50 }, { size: 100 }, { size: 250 }];
+
   constructor(
-    private cd: ChangeDetectorRef,
     public router: Router,
     private functionService: FunctionService
   ) {}
+
   getItemsPaginasSizes(): { size: number }[] {
     var items: { size: number }[] = [];
     this.paginate.itemsPaginasSizes.forEach((size) =>
@@ -39,6 +34,7 @@ export class SmPaginateComponent {
   }
 
   setPage(page: number) {
+    console.log('setPage', page);
     this.paginate.page = page - 1;
     this.setPageEvent.emit({
       page: this.functionService.getNumber(this.paginate.page, 0),
@@ -47,6 +43,8 @@ export class SmPaginateComponent {
   }
 
   setSize(event: any) {
+    console.log('setSize');
+    this.paginate.page = 0;
     this.setPageEvent.emit({
       page: this.functionService.getNumber(this.paginate.page, 0),
       size: this.functionService.getNumber(this.paginate.size, 10),

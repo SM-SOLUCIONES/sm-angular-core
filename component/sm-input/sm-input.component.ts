@@ -9,7 +9,7 @@ import {
 import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
-  selector: 'app-sm-input',
+  selector: 'sm-input',
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule, NgSelectModule],
   templateUrl: './sm-input.component.html',

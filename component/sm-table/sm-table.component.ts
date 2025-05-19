@@ -5,7 +5,7 @@ import { TableHeader } from '../../models/TableHeader.model';
 import { TableAction } from '../../models/TableAction.model';
 
 @Component({
-  selector: 'app-sm-table',
+  selector: 'sm-table',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './sm-table.component.html',
