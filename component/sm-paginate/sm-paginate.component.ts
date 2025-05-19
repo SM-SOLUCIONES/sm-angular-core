@@ -39,7 +39,7 @@ export class SmPaginateComponent {
   }
 
   setPage(page: number) {
-    this.paginate.page = page;
+    this.paginate.page = page - 1;
     this.setPageEvent.emit({
       page: this.functionService.getNumber(this.paginate.page, 0),
       size: this.functionService.getNumber(this.paginate.size, 10),
