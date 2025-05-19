@@ -39,12 +39,14 @@
     </ng-select>
     } @else {
     <input
+      class="form-control"
       [type]="type"
       [id]="nameFormControl"
       [(ngModel)]="value"
       (ngModelChange)="onInputChange($event)"
       [class]="style"
       [disabled]="disabled"
+      [placeholder]="placeholder"
     />
     } }
   </div>

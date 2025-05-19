@@ -27,6 +27,7 @@ export class SmInputComponent implements ControlValueAccessor {
   @Input() label: string = 'texto';
   @Input() nameFormControl: string = '';
   @Input() style: string = 'formbasic';
+  @Input() placeholder: string = '';
   @Input() form?: FormGroup;
   @Input() items: any[] = []; // Datos para el select
   @Input() bindLabel: string = 'label'; // Propiedad a mostrar en el select
@@ -34,7 +35,7 @@ export class SmInputComponent implements ControlValueAccessor {
 
   value: any = '';
   disabled: boolean = false;
-  
+
   onChange = (_: any) => {};
   onTouched = () => {};
 
