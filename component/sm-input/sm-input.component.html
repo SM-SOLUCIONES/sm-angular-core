@@ -12,6 +12,7 @@
         [bindValue]="bindValue"
         [formControlName]="nameFormControl"
         [class]="style"
+        [clearable]="clearable"
       >
       </ng-select>
       } @else {
@@ -35,6 +36,7 @@
       (ngModelChange)="onInputChange($event)"
       [class]="style"
       [disabled]="disabled"
+      [clearable]="clearable"
     >
     </ng-select>
     } @else {

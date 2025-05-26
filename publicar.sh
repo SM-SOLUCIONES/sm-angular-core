@@ -13,3 +13,8 @@ cd dist
 
 echo "-Publicando"
 npm publish --access public
+
+echo "Subiendo a git"
+git add .
+git commit -m "Sync"
+git push

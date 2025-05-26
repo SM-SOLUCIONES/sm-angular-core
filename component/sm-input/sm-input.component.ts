@@ -34,6 +34,7 @@ export class SmInputComponent implements ControlValueAccessor {
   @Input() bindLabel: string = 'label'; // Propiedad a mostrar en el select
   @Input() bindValue: string = 'value'; // Propiedad para el valor del select
   @Input() value: string = 'value'; // Propiedad de valor para el select sin formulario
+  @Input() clearable: boolean = false; // Solo para select, cruz para borrar lo seleccionado
 
   onChange = (_: any) => {};
   onTouched = () => {};

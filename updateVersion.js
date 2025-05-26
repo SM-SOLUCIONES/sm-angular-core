@@ -5,19 +5,19 @@ const path = require('path');
 const archivo = 'package.json';
 const versionFilePath = path.join(__dirname, archivo);
 
-// Verificar si el archivo package.json existe
+// Verificar si el archivo existe
 if (!fs.existsSync(versionFilePath)) {
-    console.error('El archivo package.json no se encuentra en la ruta:', versionFilePath);
+    console.error('El archivo '+archivo+' no se encuentra en la ruta:', versionFilePath);
     process.exit(1);
 }
 
-// Cargar el contenido actual de package.json
+// Cargar el contenido actual de archivo
 let packageData;
 try {
     packageData = JSON.parse(fs.readFileSync(versionFilePath, 'utf8'));
-    // console.log('Contenido actual de package.json:', packageData); // Verificación
+    // console.log('Contenido actual de archivo:', packageData); // Verificación
 } catch (error) {
-    console.error('Error al leer el archivo package.json:', error);
+    console.error('Error al leer el archivo '+archivo+':', error);
     process.exit(1);
 }
 
@@ -37,11 +37,11 @@ const newVersion = versionParts.join('.');
 // Actualizar la propiedad "version"
 packageData.version = newVersion;
 
-// Escribir el nuevo contenido en el archivo package.json
+// Escribir el nuevo contenido en el archivo 
 try {
     fs.writeFileSync(versionFilePath, JSON.stringify(packageData, null, 2));
-    console.log('Archivo package.json actualizado a la versión:', newVersion);
+    console.log('Nueva versión:', newVersion);
 } catch (error) {
-    console.error('Error al escribir el archivo package.json:', error);
+    console.error('Error al escribir el archivo '+archivo+':', error);
     process.exit(1); // Salir si hay error al escribir el archivo
 }
