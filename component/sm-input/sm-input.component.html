@@ -1,44 +1,69 @@
-<div [class]="style" style="width: 100%">
-  <div>
-    <label [for]="nameFormControl">{{ label }}:</label>
+<!-- Se puede usar con formulario dinamico o con ngmodel -->
+<!-- Se puede usar input de todos los tipos o select (ng-select) -->
+
+<!-- ej: imput con formulario dinamico
+  <sm-input
+    class="col-6"
+    label="Numero documento"
+    type="number"
+    nameFormControl="personaDocumentoNumero"
+    [form]="formulario"
+  ></sm-input>
+-->
+
+<div [class]="style">
+  <div class="text-start">
+    @if(label) {
+    <label [for]="nameFormControl">{{ label }}</label>
+    }
   </div>
   <div>
     @if (form) {
     <div [formGroup]="form">
       @if (type === 'select') {
+      <!--  -->
       <ng-select
         [items]="items"
         [bindLabel]="bindLabel"
         [bindValue]="bindValue"
         [formControlName]="nameFormControl"
-        [class]="style"
         [clearable]="clearable"
+        (change)="onInputChange($event)"
+        (search)="searchOnChange($event.term)"
       >
       </ng-select>
+      <!--  -->
       } @else {
       <input
         [type]="type"
         [id]="nameFormControl"
         [formControlName]="nameFormControl"
-        [class]="style"
+        [placeholder]="placeholder"
       />
-      } @if (form && form.controls[nameFormControl].invalid &&
+      }
+      <!--  -->
+      @if (form.controls[nameFormControl].invalid &&
       form.controls[nameFormControl].touched) {
       <div class="text-danger">El campo {{ label }} es obligatorio</div>
       }
     </div>
-    } @else { @if (type === 'select') {
+    } @else {
+    <!--  -->
+    @if (type === 'select') {
+    <!--  -->
     <ng-select
       [items]="items"
       [bindLabel]="bindLabel"
       [bindValue]="bindValue"
       [(ngModel)]="value"
-      (ngModelChange)="onInputChange($event)"
-      [class]="style"
-      [disabled]="disabled"
+      (change)="onInputChange($event)"
+      (search)="searchOnChange($event.term)"
       [clearable]="clearable"
+      [disabled]="disabled"
     >
     </ng-select>
+    <!--  -->
+    <!--  -->
     } @else {
     <input
       class="form-control"
@@ -46,10 +71,11 @@
       [id]="nameFormControl"
       [(ngModel)]="value"
       (ngModelChange)="onInputChange($event)"
-      [class]="style"
       [disabled]="disabled"
       [placeholder]="placeholder"
     />
-    } }
+    }
+    <!--  -->
+    }
   </div>
 </div>

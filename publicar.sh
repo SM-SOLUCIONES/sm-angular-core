@@ -14,6 +14,7 @@ cd dist
 echo "-Publicando"
 npm publish --access public
 
+cd ..
 echo "Subiendo a git"
 git add .
 git commit -m "Sync"
