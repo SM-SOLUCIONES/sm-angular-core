@@ -24,20 +24,20 @@ export class SmTableComponent implements OnInit {
   ngOnInit(): void {}
 
   parseData(row: any, header: TableHeader) {
-    if (row[header.key] === 0 && typeof row[header.key] === 'number') {
-      return '0';
-    }
-    if (!row[header.key]) {
-      return '-';
-    }
     var value = row[header.key];
     if (header.func) {
       value = header.func(value);
+    }
+    if (value === 0 && typeof value === 'number') {
+      return '0';
+    }
+    if (!value) {
+      return '-';
     }
     return value;
   }
 
   clickAction(action: TableAction) {
-    action.func("asd")
+    action.func('asd');
   }
 }

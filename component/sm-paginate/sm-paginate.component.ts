@@ -34,8 +34,9 @@ export class SmPaginateComponent {
   }
 
   setPage(page: number) {
-    console.log('setPage', page);
-    this.paginate.page = page - 1;
+    console.log('setPage |', 'page:', page, 'paginada:', this.paginate);
+
+    this.paginate.page = page;
     this.setPageEvent.emit({
       page: this.functionService.getNumber(this.paginate.page, 0),
       size: this.functionService.getNumber(this.paginate.size, 10),
@@ -43,7 +44,8 @@ export class SmPaginateComponent {
   }
 
   setSize(event: any) {
-    console.log('setSize');
+    console.log('setSize |', 'event:', event, 'paginada:', this.paginate);
+
     this.paginate.page = 0;
     this.setPageEvent.emit({
       page: this.functionService.getNumber(this.paginate.page, 0),

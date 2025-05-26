@@ -9,7 +9,7 @@ import { AccessToken } from '../models/AccessToken.model';
 import { EnviromentService } from './enviroment.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
   private retry: number = 0;
@@ -88,7 +88,12 @@ export class DataService {
       // Suscripción al observable
       observable.subscribe(
         (data) => {
-          const res = new HttpData(this.getRouteName(route, routes), route, data, null);
+          const res = new HttpData(
+            this.getRouteName(route, routes),
+            route,
+            data,
+            null
+          );
           resolve(res);
         },
         (error) => {
@@ -98,13 +103,19 @@ export class DataService {
             null,
             error
           );
+          if (error.status === 403) {
+            window.location.href = env.sso.url;
+          }
           resolve(res);
         }
       );
     });
   }
 
-  getRouteName(route: RoutesModel, routes: { [key: string]: RoutesModel }): string {
+  getRouteName(
+    route: RoutesModel,
+    routes: { [key: string]: RoutesModel }
+  ): string {
     const json = JSON.stringify(route);
     for (const name of Object.keys(routes)) {
       if (JSON.stringify(routes[name]) === json) {

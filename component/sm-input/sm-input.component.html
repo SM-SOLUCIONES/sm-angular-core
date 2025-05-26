@@ -21,7 +21,7 @@
         [formControlName]="nameFormControl"
         [class]="style"
       />
-      } @if (form.controls[nameFormControl].invalid &&
+      } @if (form && form.controls[nameFormControl].invalid &&
       form.controls[nameFormControl].touched) {
       <div class="text-danger">El campo {{ label }} es obligatorio</div>
       }

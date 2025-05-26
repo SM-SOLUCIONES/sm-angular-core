@@ -7,7 +7,7 @@ export class PaginateDataModel {
   public empty: boolean = false;
   public first: boolean = true;
   public last: boolean = true;
-  public number: number = 0;
+  public number: number = 1;
   public numberOfElements: number = 0;
   public totalElements: number = 0;
 }

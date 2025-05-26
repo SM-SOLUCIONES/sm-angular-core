@@ -29,12 +29,11 @@ export class SmInputComponent implements ControlValueAccessor {
   @Input() style: string = 'formbasic';
   @Input() placeholder: string = '';
   @Input() form?: FormGroup;
+  @Input() disabled: boolean = false; // Solo para cuando no se usa formulario
   @Input() items: any[] = []; // Datos para el select
   @Input() bindLabel: string = 'label'; // Propiedad a mostrar en el select
   @Input() bindValue: string = 'value'; // Propiedad para el valor del select
-
-  value: any = '';
-  disabled: boolean = false;
+  @Input() value: string = 'value'; // Propiedad de valor para el select sin formulario
 
   onChange = (_: any) => {};
   onTouched = () => {};
