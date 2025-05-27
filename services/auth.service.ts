@@ -96,36 +96,28 @@ export class AuthService {
   }
 
   getRoles(): string[] {
-    console.log('getRoles', this.user);
     if (!this.user) return [];
     var rolesUsuario: string[] = [];
     if ('permisos' in this.user) {
       rolesUsuario = this.user.permisos;
-      console.log('permisos');
     } else if ('roles' in this.user) {
       rolesUsuario = this.user.roles;
-      console.log('roles');
     }
-    console.log('rolesUsuario', rolesUsuario);
     return rolesUsuario;
   }
 
   validRol(roles: string | string[]): boolean {
     if (!this.user) return false;
     const rolesUsuario = this.getRoles();
-    console.log('validrol', roles, rolesUsuario);
 
     if (Array.isArray(roles)) {
       for (const rol of roles) {
         if (rolesUsuario.includes(rol)) {
-          console.log('return1 true');
           return true;
         }
       }
-      console.log('return2 false');
       return false;
     } else {
-      console.log('return3 ' + rolesUsuario.includes(roles));
       return rolesUsuario.includes(roles);
     }
   }
