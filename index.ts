@@ -26,4 +26,3 @@ export * from './models/Routes.model';
 export * from './models/RoutesList.model';
 export * from './models/TableAction.model';
 export * from './models/TableHeader.model';
-export * from './models/User.model';

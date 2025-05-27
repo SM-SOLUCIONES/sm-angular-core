@@ -20,7 +20,7 @@ export class DataService {
   ) {}
 
   httpFunction(
-    routeName: string,
+    routeName: string | RoutesModel,
     body?: any,
     parameters?: { [key: string]: string }
   ): Promise<HttpData> {
@@ -29,8 +29,16 @@ export class DataService {
       if (!routes) throw new Error('No se encontraron las rutas');
       const env = await this.enviromentService.getEnv();
       if (!env) throw new Error('No se encontró el env');
+      const config = await this.enviromentService.getConfig();
+      if (!config) throw new Error('No se encontró el config');
 
-      const route = routes[routeName];
+      var route: RoutesModel;
+      if (typeof routeName == 'string') {
+        route = routes[routeName];
+      } else {
+        route = routeName;
+      }
+
       let url = env.server + route.url;
 
       // Reemplazar los parámetros en la URL si existen
@@ -51,12 +59,20 @@ export class DataService {
         headers = headers.append('Content-Type', 'application/json');
 
       if (!route.noAuth) {
-        const accessToken: AccessToken | null = this.getToken();
-        if (accessToken)
-          headers = headers.append(
-            'Authorization',
-            `Bearer ${accessToken.accessToken}`
-          );
+        if (
+          config.authService.type == 'jwt' ||
+          config.authService.type == 'sso'
+        ) {
+          const accessToken: AccessToken | null = this.getToken();
+          if (accessToken)
+            headers = headers.append(
+              'Authorization',
+              `Bearer ${accessToken.accessToken}`
+            );
+        } else if (config.authService.type == 'basic') {
+          const basic = this.getBasic();
+          // TODO se agrega como header
+        }
       }
 
       // Crear la variable observable dependiendo de la operación HTTP
@@ -126,10 +142,15 @@ export class DataService {
   }
 
   getToken(): AccessToken | null {
-    var string = localStorage.getItem('access_token');
+    var string = localStorage.getItem('access');
     if (!string) return null;
     var json = JSON.parse(string);
     var accessToken: AccessToken = new AccessToken(json);
     return accessToken;
+  }
+
+  getBasic(): string {
+    // TODO: se obtiene del local storage los datos del basic auth
+    return '';
   }
 }

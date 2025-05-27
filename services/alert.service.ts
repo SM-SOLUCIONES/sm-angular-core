@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpData } from '../models/HttpData.model';
 import Swal from 'sweetalert2';
+import { HttpData } from '../models/HttpData.model';
 
 @Injectable({
   providedIn: 'root',
@@ -8,32 +8,55 @@ import Swal from 'sweetalert2';
 export class AlertService {
   constructor() {}
 
-  dataError(nombre: string, data: HttpData) {
+  httpAlertError(data: HttpData, mensaje: string) {
+    if (data.data) return;
+    var mensaje = '';
+
     try {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error al obtener: ' + nombre,
-        text: data.err.error.message,
-      });
-      return;
-    } catch (error) {}
+      if (data.err.error.message) mensaje = data.err.error.message;
+    } catch (e) {}
+
+    try {
+      if (!mensaje && data.err.message) mensaje = data.err.message;
+    } catch (e) {}
+
+    try {
+      if (!mensaje && data.err) mensaje = data.err;
+    } catch (e) {}
+
+    if (!mensaje) mensaje = 'Error desconocido';
 
     try {
       Swal.fire({
         icon: 'error',
-        title: 'Error al obtener: ' + nombre,
-        text: data.err.message,
+        title: mensaje,
+        text: mensaje,
       });
       return;
-    } catch (error) {}
+    } catch (error) {
+      console.error('Error al mostrar mensaje de error', error);
+    }
+  }
 
-    try {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error al obtener ' + nombre,
-        text: data.err,
-      });
-      return;
-    } catch (error) {}
+  throwHttpError(data: HttpData, mensaje: string) {
+    if (data.data) return;
+    this.httpAlertError(data, mensaje);
+    throw data.err;
+  }
+
+  success(title: string, text: string = ''): Promise<any> {
+    return Swal.fire({
+      icon: 'success',
+      title: title,
+      text: text,
+    });
+  }
+
+  error(title: string, text: string = ''): Promise<any> {
+    return Swal.fire({
+      icon: 'error',
+      title: title,
+      text: text,
+    });
   }
 }
