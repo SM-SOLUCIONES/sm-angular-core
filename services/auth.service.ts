@@ -46,10 +46,7 @@ export class AuthService {
         this.getUser();
         return true;
       } else {
-        this.alertService.httpAlertError(
-          loginRes,
-          'Ingreso invalido'
-        );
+        this.alertService.httpAlertError(loginRes, 'Ingreso invalido');
         return false;
       }
     } catch (error: any) {
@@ -90,7 +87,7 @@ export class AuthService {
       } else {
         console.log('Error AUTH_ACTUAL', data);
         if (!this.router.url.includes('access')) {
-          this.redirectSso();
+          this.redirectToLogin();
         }
       }
 
@@ -98,12 +95,24 @@ export class AuthService {
     }
   }
 
-  public async redirectSso() {
+  public async redirectToLogin() {
     const env = await this.enviromentService.getEnv();
     if (!env) throw new Error('No se encontró el env');
+    const config = await this.enviromentService.getConfig();
+    if (!config) throw new Error('No se encontró el config');
 
-    window.location.href =
-      env.sso.url + '?redirect=' + btoa(env.sso.redirectUri);
+    if (
+      config.authService.type == 'jwt' ||
+      config.authService.type == 'basic'
+    ) {
+      console.log("url actual", this.router.url);
+      if (this.router.url !== config.authService.serverRouteLogin) {
+        this.router.navigate([config.authService.serverRouteLogin]);
+      }
+    } else if (config.authService.type == 'sso') {
+      window.location.href =
+        env.sso.url + '?redirect=' + btoa(env.sso.redirectUri);
+    }
   }
 
   validRol(roles: string | string[]): boolean {
@@ -143,14 +152,7 @@ export class AuthService {
     if (!config) throw new Error('No se encontró el config');
 
     localStorage.removeItem('access');
-    if (
-      config.authService.type == 'jwt' ||
-      config.authService.type == 'basic'
-    ) {
-      this.router.navigate([config.authService.serverRouteLogin]);
-    } else if (config.authService.type == 'sso') {
-      this.redirectSso();
-    }
+    this.redirectToLogin();
   }
 
   // isValidToken(token: string): Observable<boolean> {
