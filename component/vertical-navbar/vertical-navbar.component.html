@@ -12,15 +12,15 @@
         </div>
 
         <div class="ms-4">
-          @if ( authService.user) {
+          @if (authService.user) {
           <div>
             <span style="font-size: medium">
-              <strong>{{ authService.user.nombre }}</strong>
+              <strong>{{ authService.user.nombre || "" }}</strong>
             </span>
           </div>
           <span style="font-size: small">
-            @for (permiso of authService.user.permisos; track $index) {
-            {{ permiso }}
+            @for (rol of authService.getRoles(); track $index) {
+            {{ rol }}
             }
           </span>
           }
