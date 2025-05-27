@@ -107,7 +107,7 @@ export class AuthService {
     ) {
       console.log("url actual", this.router.url);
       if (this.router.url !== config.authService.serverRouteLogin) {
-        this.router.navigate([config.authService.serverRouteLogin]);
+        // this.router.navigate([config.authService.serverRouteLogin]);
       }
     } else if (config.authService.type == 'sso') {
       window.location.href =
