@@ -43,10 +43,10 @@ export class DataService {
         route = routeName;
       }
 
-      if (!('url' in route) || !route.url) {
+      if (!route || !('url' in route) || !route.url) {
         this.alertService.error(
           'Error al llamar al servidor',
-          'No se encontro la ruta para ' + JSON.stringify(routeName)
+          'No se encontró la ruta para ' + JSON.stringify(routeName)
         );
         return;
       }
