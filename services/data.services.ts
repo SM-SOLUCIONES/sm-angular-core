@@ -122,9 +122,10 @@ export class DataService {
             error
           );
           if (error.status === 403) {
-            this.redirectToLogin()
+            this.redirectToLogin();
+          } else {
+            resolve(res);
           }
-          resolve(res);
         }
       );
     });
