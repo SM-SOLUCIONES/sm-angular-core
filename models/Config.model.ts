@@ -7,9 +7,9 @@ export class ConfigModel {
 
 class AuthServiceConfig {
   type: 'none' | 'basic' | 'jwt' | 'sso' = 'none';
-  serverRouteLogin: string = '';
-  loginImg: string = '';
-  loginRecuperarContrasenia: boolean = false;
-  loginRegristrarse: boolean = false;
+  serverRouteLogin?: string = '';
+  loginImg?: string = '';
+  loginRecuperarContrasenia?: boolean = false;
+  loginRegristrarse?: boolean = false;
 }
 
