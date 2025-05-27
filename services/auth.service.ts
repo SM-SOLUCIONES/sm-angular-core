@@ -100,10 +100,10 @@ export class AuthService {
     if (!this.user) return [];
     var rolesUsuario: string[] = [];
     if ('permisos' in this.user) {
-      rolesUsuario == this.user.permisos;
+      rolesUsuario = this.user.permisos;
       console.log('permisos');
     } else if ('roles' in this.user) {
-      rolesUsuario == this.user.roles;
+      rolesUsuario = this.user.roles;
       console.log('roles');
     }
     console.log('rolesUsuario', rolesUsuario);
