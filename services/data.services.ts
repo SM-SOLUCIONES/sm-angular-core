@@ -8,6 +8,7 @@ import { HttpData } from '../models/HttpData.model';
 import { AccessToken } from '../models/AccessToken.model';
 import { EnviromentService } from './enviroment.service';
 import { Router } from '@angular/router';
+import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,7 @@ export class DataService {
   constructor(
     private http: HttpClient,
     private enviromentService: EnviromentService,
+    private alertService: AlertService,
     private router: Router
   ) {}
 
@@ -39,6 +41,14 @@ export class DataService {
         route = routes[routeName];
       } else {
         route = routeName;
+      }
+
+      if (!('url' in route) || !route.url) {
+        this.alertService.error(
+          'Error al llamar al servidor',
+          'No se encontro la ruta para ' + JSON.stringify(routeName)
+        );
+        return;
       }
 
       let url = env.server + route.url;
