@@ -7,6 +7,7 @@ import { RoutesModel } from './../models/Routes.model';
 import { HttpData } from '../models/HttpData.model';
 import { AccessToken } from '../models/AccessToken.model';
 import { EnviromentService } from './enviroment.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,8 @@ export class DataService {
 
   constructor(
     private http: HttpClient,
-    private enviromentService: EnviromentService
+    private enviromentService: EnviromentService,
+    private router: Router
   ) {}
 
   httpFunction(
@@ -120,7 +122,7 @@ export class DataService {
             error
           );
           if (error.status === 403) {
-            window.location.href = env.sso.url;
+            this.redirectToLogin()
           }
           resolve(res);
         }
@@ -152,5 +154,25 @@ export class DataService {
   getBasic(): string {
     // TODO: se obtiene del local storage los datos del basic auth
     return '';
+  }
+
+  public async redirectToLogin() {
+    const env = await this.enviromentService.getEnv();
+    if (!env) throw new Error('No se encontró el env');
+    const config = await this.enviromentService.getConfig();
+    if (!config) throw new Error('No se encontró el config');
+
+    if (
+      config.authService.type == 'jwt' ||
+      config.authService.type == 'basic'
+    ) {
+      console.log('url actual', this.router.url);
+      if (this.router.url !== config.authService.serverRouteLogin) {
+        // this.router.navigate([config.authService.serverRouteLogin]);
+      }
+    } else if (config.authService.type == 'sso') {
+      window.location.href =
+        env.sso.url + '?redirect=' + btoa(env.sso.redirectUri);
+    }
   }
 }

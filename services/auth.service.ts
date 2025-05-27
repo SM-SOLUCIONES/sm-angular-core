@@ -87,7 +87,7 @@ export class AuthService {
       } else {
         console.log('Error AUTH_ACTUAL', data);
         if (!this.router.url.includes('access')) {
-          this.redirectToLogin();
+          this.dataService.redirectToLogin();
         }
       }
 
@@ -95,25 +95,7 @@ export class AuthService {
     }
   }
 
-  public async redirectToLogin() {
-    const env = await this.enviromentService.getEnv();
-    if (!env) throw new Error('No se encontró el env');
-    const config = await this.enviromentService.getConfig();
-    if (!config) throw new Error('No se encontró el config');
-
-    if (
-      config.authService.type == 'jwt' ||
-      config.authService.type == 'basic'
-    ) {
-      console.log("url actual", this.router.url);
-      if (this.router.url !== config.authService.serverRouteLogin) {
-        // this.router.navigate([config.authService.serverRouteLogin]);
-      }
-    } else if (config.authService.type == 'sso') {
-      window.location.href =
-        env.sso.url + '?redirect=' + btoa(env.sso.redirectUri);
-    }
-  }
+  
 
   validRol(roles: string | string[]): boolean {
     if (!this.user) return false;
@@ -152,7 +134,7 @@ export class AuthService {
     if (!config) throw new Error('No se encontró el config');
 
     localStorage.removeItem('access');
-    this.redirectToLogin();
+    this.dataService.redirectToLogin();
   }
 
   // isValidToken(token: string): Observable<boolean> {
