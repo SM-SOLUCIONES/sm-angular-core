@@ -1,5 +1,6 @@
 export class ConfigModel {
   nombre: string = '';
+  nombreNavbar?: boolean = true;
   empresa: string = '';
   urlEmpresa: string = '';
   authService: AuthServiceConfig = new AuthServiceConfig();

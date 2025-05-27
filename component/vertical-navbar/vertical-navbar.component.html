@@ -5,6 +5,15 @@
   <div class="d-flex flex-column">
     <br />
 
+    @if (config?.nombreNavbar != false) {
+      <span
+      class="textos me-3 ms-2 mt-1"
+      style="text-transform: uppercase; letter-spacing: 2px; font-weight: 400"
+      >{{ config?.nombre }}</span
+      >
+      <br />
+    }
+
     <div class="d-flex align-item-center">
       <div class="ms-3 d-flex align-items-center">
         <div>
@@ -26,12 +35,6 @@
           }
         </div>
       </div>
-
-      <span
-        class="textos me-3 ms-2 mt-1"
-        style="text-transform: uppercase; letter-spacing: 2px; font-weight: 400"
-        >{{ config?.nombre }}</span
-      >
     </div>
     <br />
     <ng-template ngFor let-navbar [ngForOf]="navbarList">
