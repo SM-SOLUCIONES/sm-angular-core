@@ -5,11 +5,11 @@
   <div class="d-flex flex-column">
     <br />
 
-    @if (config?.nombreNavbar != false) {
+    @if (config?.nombreNavbar) {
       <span
       class="textos me-3 ms-2 mt-1"
       style="text-transform: uppercase; letter-spacing: 2px; font-weight: 400"
-      >{{ config?.nombre }}</span
+      >{{ config?.nombreNavbar }}</span
       >
       <br />
     }

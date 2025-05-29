@@ -44,6 +44,12 @@ export class DataService {
       }
 
       if (!route || !('url' in route) || !route.url) {
+        console.warn(
+          'Error al llamar al servidor',
+          'No se encontró la ruta para',
+          routeName
+        );
+
         this.alertService.error(
           'Error al llamar al servidor',
           'No se encontró la ruta para ' + JSON.stringify(routeName)
@@ -168,6 +174,8 @@ export class DataService {
   }
 
   public async redirectToLogin() {
+    console.log('redirectToLogin');
+
     const env = await this.enviromentService.getEnv();
     if (!env) throw new Error('No se encontró el env');
     const config = await this.enviromentService.getConfig();
@@ -177,11 +185,14 @@ export class DataService {
       config.authService.type == 'jwt' ||
       config.authService.type == 'basic'
     ) {
-      console.log('url actual', this.router.url);
+      console.log('jwt|basic - Url actual:', this.router.url);
+      console.log('dirigiendo a:', this.router.url);
+
       if (this.router.url !== config.authService.serverRouteLogin) {
         this.router.navigate([config.authService.serverRouteLogin]);
       }
     } else if (config.authService.type == 'sso') {
+      console.log('sso - dirigiendo a:', env.sso.url);
       window.location.href =
         env.sso.url + '?redirect=' + btoa(env.sso.redirectUri);
     }
