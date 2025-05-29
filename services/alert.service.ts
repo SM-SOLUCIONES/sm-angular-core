@@ -8,7 +8,7 @@ import { HttpData } from '../models/HttpData.model';
 export class AlertService {
   constructor() {}
 
-  httpAlertError(data: HttpData, mensaje: string) {
+  httpAlertError(data: HttpData, mensajeTitulo: string) {
     if (data.data) return;
     var mensaje = '';
 
@@ -29,7 +29,7 @@ export class AlertService {
     try {
       Swal.fire({
         icon: 'error',
-        title: mensaje,
+        title: mensajeTitulo,
         text: mensaje,
       });
       return;
