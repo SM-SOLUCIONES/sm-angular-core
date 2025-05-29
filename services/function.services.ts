@@ -31,13 +31,13 @@ export class FunctionService {
    * @param commands COnfiguracion estandar del navigate
    * @returns void. Sirve para usar con await y evitar ejecucion de codigo no deseada
    */
-  public async redirect(commands: any[]): Promise<void> {
+  public async redirect(commands: any[]): Promise<boolean> {
     try {
       await this.router.navigate(commands);
-      throw 'dirigiendo';
+      return true;
     } catch (ex) {
       console.error('redirect', ex);
-      throw 'dirigiendo';
+      throw 'redirect error';
     }
   }
 
