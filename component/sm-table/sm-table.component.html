@@ -28,6 +28,7 @@
             *ngFor="let action of dataActions"
             (click)="action.func(row)"
             style="cursor: pointer"
+            class="ms-2 me-2"
           >
             <i [class]="action.icon"></i>
           </div>
