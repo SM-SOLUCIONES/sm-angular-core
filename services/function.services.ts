@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { formatCurrency, registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
-import { cloneDeep } from 'lodash';
+import { Router } from '@angular/router';
 
 registerLocaleData(localeEsAr);
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FunctionService {
+  constructor(private router: Router) {}
+
   public yesNoLst: any = [
     { nombre: 'No', id: 0 },
     { nombre: 'Si', id: 1 },
@@ -25,18 +27,34 @@ export class FunctionService {
   ];
 
   /**
+   * Realiza una redireccion
+   * @param commands COnfiguracion estandar del navigate
+   * @returns void. Sirve para usar con await y evitar ejecucion de codigo no deseada
+   */
+  public async redirect(commands: any[]): Promise<void> {
+    try {
+      await this.router.navigate(commands);
+      throw 'dirigiendo';
+    } catch (ex) {
+      console.error('redirect', ex);
+      throw 'dirigiendo';
+    }
+  }
+
+  /**
    * Realiza una copia completa del object
    * @param originalObject Objeto original a hacer la copa
    * @returns un nuevo object a partir del objeto pasado
    */
   public cloneDeepObject(originalObject: any): any {
     try {
-      return cloneDeep(originalObject);
+      return JSON.parse(JSON.stringify(originalObject));
     } catch (ex) {
       console.error('cloneDeepObject', ex);
       return undefined;
     }
   }
+
   /**
    * Retorna el Valor de un Number, si es NaN o invalido retorna el parDefault
    * @param value

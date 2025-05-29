@@ -1,4 +1,3 @@
-import { FunctionService } from '../services/function.services';
 import { PaginateDataModel } from './PaginateData.model';
 
 export class PaginateConfigModel {
@@ -12,18 +11,14 @@ export class PaginateConfigModel {
   public showSelectPaginate: boolean = true;
   public itemsPaginasSizes: number[] = [10, 15, 50, 100];
 
-  private functionService: FunctionService;
-
-  constructor() {
-    this.functionService = new FunctionService();
-  }
+  constructor() {}
 
   // Las variables ...Ant obtienen los valores de sus respectivas variables
   // Esta funcion se usa cuando se realiza una busqueda o un llamado al paginado
   public actualizarAnt(filtros: any) {
     this.sizeAnt = this.size;
     this.pageAnt = this.page;
-    this.filtrosAnt = this.functionService.cloneDeepObject(filtros);
+    this.filtrosAnt = JSON.parse(JSON.stringify(filtros));
   }
 
   // Comprueba si los ...Ant son iguales a sus variables originales
