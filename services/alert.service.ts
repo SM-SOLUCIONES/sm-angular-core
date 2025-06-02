@@ -61,18 +61,20 @@ export class AlertService {
     await Swal.fire({
       title: title || '¿Estás seguro?',
       text: text || '',
-      icon: 'warning',
+      icon: 'question',
       showCancelButton: true,
       confirmButtonText: yesOption || 'Confirmar',
       cancelButtonText: noOption || 'Cancelar',
     })
       .then((result) => {
+        console.log('result', result);
         return result.isConfirmed;
       })
       .catch((error) => {
         console.error('Swal error', error);
         return false;
       });
+    console.log('no se espero');
     return false;
   }
 
