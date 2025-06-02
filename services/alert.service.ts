@@ -67,14 +67,14 @@ export class AlertService {
       cancelButtonText: noOption || 'Cancelar',
     })
       .then((result) => {
-        console.log('result', result);
-        return result.isConfirmed;
+        console.log('result', result.isConfirmed);
+        if (result.isConfirmed) return true;
+        else return false;
       })
       .catch((error) => {
         console.error('Swal error', error);
         return false;
       });
-    console.log('no se espero');
     return false;
   }
 
