@@ -284,3 +284,16 @@ span,
 div {
   color: white;
 }
+
+ng-select .ng-option {
+  color: black;
+}
+
+ng-select .ng-option.ng-option-marked {
+  background-color: #e6e6e6; /* o el color que prefieras para la opción seleccionada */
+  color: black;
+}
+
+ng-select .ng-value {
+  color: black;
+}
