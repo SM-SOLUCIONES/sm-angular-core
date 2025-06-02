@@ -53,18 +53,19 @@ export class AlertService {
   }
 
   async question(
-    title: string = '',
+    title: string = '¿Estás seguro?',
     text: string = '',
-    yesOption: string = '',
-    noOption: string = ''
+    yesOption: string = 'Confirmar',
+    noOption: string = 'Cancelar',
+    icon: 'success' | 'error' | 'warning' | 'info' | 'question' = 'question'
   ): Promise<boolean> {
     let result = await Swal.fire({
-      title: title || '¿Estás seguro?',
-      text: text || '',
-      icon: 'question',
+      title: title,
+      text: text,
+      icon: icon,
       showCancelButton: true,
-      confirmButtonText: yesOption || 'Confirmar',
-      cancelButtonText: noOption || 'Cancelar',
+      confirmButtonText: yesOption,
+      cancelButtonText: noOption,
     })
 
     return result.isConfirmed;

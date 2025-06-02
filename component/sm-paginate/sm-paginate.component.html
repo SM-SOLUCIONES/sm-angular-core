@@ -1,5 +1,6 @@
 <div class="d-flex justify-content-around w-100 paginate-footer">
-  <div *ngIf="paginate.showSizeSelector" class="size-selector">
+  @if (paginate.showSizeSelector){
+  <div class="size-selector">
     <ng-select
       [items]="itemsSize"
       bindLabel="size"
@@ -11,6 +12,7 @@
     >
     </ng-select>
   </div>
+  }
 
   <ngb-pagination
     class="d-flex outline justify-content-center"
@@ -21,5 +23,7 @@
     [pageSize]="paginate.size"
   ></ngb-pagination>
 
-  <div *ngIf="paginate.showSizeSelector" class="size-selector"></div>
+  @if (paginate.showSizeSelector) {
+  <div class="size-selector"></div>
+  }
 </div>
