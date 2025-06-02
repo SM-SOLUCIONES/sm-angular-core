@@ -58,7 +58,7 @@ export class AlertService {
     yesOption: string = '',
     noOption: string = ''
   ): Promise<boolean> {
-    await Swal.fire({
+    let result = await Swal.fire({
       title: title || '¿Estás seguro?',
       text: text || '',
       icon: 'question',
@@ -66,16 +66,8 @@ export class AlertService {
       confirmButtonText: yesOption || 'Confirmar',
       cancelButtonText: noOption || 'Cancelar',
     })
-      .then((result) => {
-        console.log('result', result.isConfirmed);
-        if (result.isConfirmed) return true;
-        else return false;
-      })
-      .catch((error) => {
-        console.error('Swal error', error);
-        return false;
-      });
-    return false;
+
+    return result.isConfirmed;
   }
 
   error(title: string, text: string = ''): Promise<any> {
