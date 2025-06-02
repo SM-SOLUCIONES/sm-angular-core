@@ -52,6 +52,30 @@ export class AlertService {
     });
   }
 
+  async question(
+    title: string = '',
+    text: string = '',
+    yesOption: string = '',
+    noOption: string = ''
+  ): Promise<boolean> {
+    await Swal.fire({
+      title: title || '¿Estás seguro?',
+      text: text || '',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: yesOption || 'Confirmar',
+      cancelButtonText: noOption || 'Cancelar',
+    })
+      .then((result) => {
+        return result.isConfirmed;
+      })
+      .catch((error) => {
+        console.error('Swal error', error);
+        return false;
+      });
+    return false;
+  }
+
   error(title: string, text: string = ''): Promise<any> {
     return Swal.fire({
       icon: 'error',
