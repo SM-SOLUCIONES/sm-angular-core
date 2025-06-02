@@ -1,8 +1,28 @@
-// Import bootstrap
 @use "bootstrap/scss/bootstrap";
 
 $colorHeaderTabla: rgba(0, 0, 0, 0.288);
 $colorBodyTabla: rgba(255, 252, 252, 0);
+
+label {
+  font-size: smaller;
+  color: white;
+}
+
+.card-header {
+  color: white;
+  background-color: transparent;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+span,
+div {
+  color: white;
+}
 
 .vh-100 {
   height: 100vh !important;
@@ -215,7 +235,7 @@ body {
 }
 
 /* Cambiar el color del texto dentro del campo de texto */
-ng-select .ng-input input {
+.ng-select .ng-input input {
   color: white !important;
 }
 
@@ -224,8 +244,22 @@ ng-select .ng-input input {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5) !important; /* Opcional: agrega sombra */
 }
 
+.ng-dropdown-panel {
+  background-color: rgba(49, 49, 49, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.ng-dropdown-panel .ng-option {
+  background-color: rgba(49, 49, 49, 0.8) !important;
+  color: white !important;
+}
+
+.ng-dropdown-panel .ng-option:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 ngb-pagination {
-  background-color: transparent !important;
+  background-color: rgba(49, 49, 49, 0.8) !important;
   border-radius: 8px !important;
   box-shadow: none;
 }
@@ -253,11 +287,6 @@ ngb-pagination .page-item.active .page-link {
   color: white;
 }
 
-label {
-  font-size: smaller;
-  color: white;
-}
-
 .sm-card {
   @extend .card;
   background-color: rgba(250, 235, 215, 0.115);
@@ -265,35 +294,6 @@ label {
   @extend .mb-3;
 }
 
-.card-header {
-  color: white;
-  background-color: transparent;
-}
-
 .container {
   @extend .mt-3;
-}
-
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-span,
-div {
-  color: white;
-}
-
-ng-select .ng-option {
-  color: black;
-}
-
-ng-select .ng-option.ng-option-marked {
-  background-color: #e6e6e6; /* o el color que prefieras para la opción seleccionada */
-  color: black;
-}
-
-ng-select .ng-value {
-  color: black;
 }
