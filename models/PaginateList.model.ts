@@ -43,21 +43,19 @@ export class PaginateListModel {
 
   public addParameter(
     parFieldName: string,
-    parValue: string[],
-    parOperation: string = '=',
-/*     parFieldType?: string
- */  ) {
+    parValue: string,
+    parOperation: string = '='
+  ) {
     const parameter: PaginateParametersModel = new PaginateParametersModel(
       parFieldName,
-      parValue.join(','),
-      parOperation,
-/*       parFieldType
- */    );
+      parValue,
+      parOperation
+    );
     //Busca el parametro, si es igual, lo reemplaza
     for (let par of this.paginateParametersList) {
       if (par.name === parFieldName) {
         par.operation = parOperation;
-        par.value = parValue.join(',');
+        par.value = parValue;
         return; //Existe
       }
     }
