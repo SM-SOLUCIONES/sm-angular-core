@@ -1,0 +1,26 @@
+// Colores generales
+$primary-text-color: #333333 !default; // Un color oscuro para el texto principal
+$secondary-text-color: #555555 !default; // Un color un poco más claro para texto secundario
+$background-color: #f7f7f8 !default; // El color de fondo claro
+$card-background-color: #ffffff !default; // Fondo de tarjeta claro
+
+// Colores específicos para la tabla
+$colorHeaderTabla: rgba(0, 0, 0, 0.1) !default; // Un poco de oscuridad para el header de la tabla
+$colorBodyTabla: rgba(255, 255, 255, 0.9) !default; // Un fondo claro para el body de la tabla
+
+// Colores para ng-select
+$ng-select-background: rgba(240, 248, 255, 0.7) !default; // Fondo de ng-select claro
+$ng-select-text-color: #333333 !default; // Color de texto en ng-select
+$ng-select-border: rgba(0, 0, 0, 0.3) !default; // Borde de ng-select
+$ng-select-search-background: rgba(17, 111, 193, 0.2) !default; // Fondo del buscador de ng-select
+$ng-select-dropdown-background: #f8f9fa !default; // Fondo del dropdown de ng-select
+$ng-select-dropdown-hover: rgba(0, 0, 0, 0.05) !default; // Hover del dropdown de ng-select
+
+// Colores para paginación
+$pagination-background: rgba(255, 255, 255, 0.8) !default; // Fondo de paginación claro
+$pagination-text-color: #333333 !default; // Color de texto de paginación
+$pagination-active-background: #007bff !default; // Fondo activo de paginación
+$pagination-active-text: white !default; // Texto activo de paginación
+
+// Colores para modal
+$modal-title-color: #333333 !default; // Título de modal

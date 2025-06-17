@@ -1,0 +1,161 @@
+@use "bootstrap/scss/bootstrap";
+
+// Define un mixin para aplicar los estilos que dependen de los colores del tema.
+// Recibe las variables como argumentos.
+@mixin apply-theme-colors(
+    $primary-text-color,
+    $background-color,
+    $card-background-color,
+    $ng-select-background,
+    $ng-select-text-color,
+    $ng-select-border,
+    $ng-select-search-background,
+    $ng-select-dropdown-background,
+    $ng-select-dropdown-hover,
+    $pagination-background,
+    $pagination-text-color,
+    $pagination-active-background,
+    $pagination-active-text,
+    $modal-title-color
+) {
+    label {
+        font-size: smaller;
+        color: $primary-text-color;
+    }
+
+    .card-header {
+        color: $primary-text-color;
+        background-color: transparent;
+    }
+
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    span,
+    div {
+        color: $primary-text-color;
+    }
+
+    body {
+        background-color: $background-color;
+        color: $primary-text-color !important;
+        // ... (resto de estilos de body que usan variables de color)
+    }
+
+    .colorTextosGeneral {
+        color: $primary-text-color !important;
+    }
+
+    .backgroud-cards {
+        background-color: $card-background-color !important;
+    }
+
+    /* Personalizar el contenedor principal de ng-select */
+    .ng-select {
+        // ... otros estilos ...
+    }
+
+    /* Personalizar el texto dentro del ng-select */
+    .ng-select .ng-value {
+        color: $ng-select-text-color;
+        // ... otros estilos ...
+    }
+
+    /* Personalizar el control de búsqueda dentro del ng-select */
+    .ng-select .ng-select-search {
+        background-color: $ng-select-search-background !important;
+        color: $ng-select-text-color;
+    }
+
+    .ng-select .ng-select-container {
+        background-color: $ng-select-background !important;
+        border-bottom: solid 1px $ng-select-border !important;
+        border-left: 1px solid $ng-select-border !important;
+        color: $ng-select-text-color;
+    }
+
+    /* Cambiar el color del texto dentro del campo de texto */
+    .ng-select .ng-input input {
+        color: $ng-select-text-color !important;
+    }
+
+    .ng-dropdown-panel {
+        background-color: $ng-select-dropdown-background !important;
+        // ... otros estilos ...
+    }
+
+    .ng-dropdown-panel .ng-option {
+        background-color: $ng-select-dropdown-background !important;
+        color: $ng-select-text-color !important;
+    }
+
+    .ng-dropdown-panel .ng-option:hover {
+        background-color: $ng-select-dropdown-hover !important;
+    }
+
+    ngb-pagination {
+        background-color: $pagination-background !important;
+        // ... otros estilos ...
+    }
+
+    /* Estilo para cada item de página */
+    ngb-pagination .page-item .page-link {
+        color: $pagination-text-color;
+        // ... otros estilos ...
+    }
+
+    /* Estilo para la página activa */
+    ngb-pagination .page-item.active .page-link {
+        background-color: $pagination-active-background;
+        color: $pagination-active-text;
+        border-color: $pagination-active-background;
+    }
+
+    .modal-title {
+        color: $modal-title-color;
+    }
+}
+
+// El resto de tus estilos en _utils.scss que NO dependen de los colores del tema
+// pueden quedarse fuera del mixin o dentro de otro mixin específico.
+.vh-100 {
+    height: 100vh !important;
+    height: calc(var(--vh, 1vh) * 100) !important;
+}
+
+.vw-100 {
+    width: 100vw !important;
+}
+
+.click {
+    cursor: pointer;
+}
+
+@media print {
+    .noPrint {
+        display: none;
+    }
+}
+@media screen {
+    .onlyPrint {
+        display: none;
+    }
+}
+
+.hide {
+    display: none !important;
+}
+
+.sm-card {
+    @extend .card;
+    background-color: rgba(250, 235, 215, 0.115);
+    @extend .p-3;
+    @extend .mb-3;
+}
+
+.container {
+    @extend .mt-3;
+}
