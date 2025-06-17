@@ -1,19 +1,21 @@
+@use "../../scss/default.scss" as *;
+
 input {
   all: unset;
-  color: white !important;
+  color: $primary-text-color !important;
   min-height: 30px !important;
   background-color: transparent !important;
 }
 
 input:disabled {
-  background-color: rgba(240, 248, 255, 0.102) !important;
+  background-color: $ng-select-background !important;
 }
 
 .formbasic {
   input {
     background-color: transparent !important;
-    border-bottom: solid 1px rgba(250, 250, 250, 0.711) !important;
-    border: 1px solid rgba(250, 250, 250, 0.711) !important;
+    border-bottom: solid 1px $ng-select-border !important;
+    border: 1px solid $ng-select-border !important;
     padding-top: 2px;
     padding-bottom: 2px;
     padding-left: 2%;
@@ -21,10 +23,12 @@ input:disabled {
     border-radius: 5px;
     width: 96%;
     text-align: left;
+    color: $primary-text-color !important;
   }
 
   input:disabled {
-    background-color: rgba(240, 248, 255, 0.2) !important;
+    background-color: $ng-select-background !important;
+    color: $ng-select-text-color !important;
   }
 }
 
@@ -36,15 +40,15 @@ input:disabled {
 
 label {
   font-size: smaller;
-  color: white;
+  color: $primary-text-color;
 }
 
 input:focus {
-  border: solid 1px rgb(0, 91, 247) !important; /* Cambia el color del borde */
+  border: solid 1px $pagination-active-background !important;
 }
 
-input:focus label {
-  border: solid 1px rgb(0, 91, 247) !important; /* Cambia el color del borde */
+input:focus + label {
+  color: $pagination-active-background !important;
 }
 
 .ng-select {
@@ -52,5 +56,5 @@ input:focus label {
 }
 
 .ng-select.ng-select-disabled {
-  background-color: rgba(240, 248, 255, 0.2) !important;
+  background-color: $ng-select-background !important;
 }
