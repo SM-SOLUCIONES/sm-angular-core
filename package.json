@@ -1,6 +1,6 @@
 {
   "name": "sm-angular-core",
-  "version": "1.0.85",
+  "version": "1.0.86",
   "author": "Taiel Martinez & Matias Sabatini",
   "description": "Angular 18 | Libreria Core para angular | Creado para la empresa SM-Soluciones y BlueOpenData",
   "repository": {
@@ -20,7 +20,7 @@
     "@angular/compiler": "^18.0.0",
     "@angular/core": "^18.0.0",
     "@angular/forms": "^18.0.0",
-    "@angular/localize": "^19.2.14",
+    "@angular/localize": "^18.0.0",
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
@@ -41,8 +41,8 @@
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^18.0.7",
-    "@angular/cli": "^18.0.7",
+    "@angular-devkit/build-angular": "^18.0.0",
+    "@angular/cli": "^18.0.0",
     "@angular/compiler-cli": "^18.0.0",
     "@types/jasmine": "~5.1.0",
     "@types/lodash": "^4.17.15",
