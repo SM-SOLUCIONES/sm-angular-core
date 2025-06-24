@@ -1,74 +1,82 @@
-// Removed unused import of List from lodash
-import { PaginateOrderModel } from './PaginateOrder.model';
-import { PaginateParametersModel } from './PaginateParameters.model';
-/**
- * Es un modelo para enviar a un recurso con paginate
- *
- */
+import { PaginateFiltroModel } from './PaginateFiltro.model';
+import { PaginateOrdenModel } from './PaginateOrden.model';
+import { PaginateParametroModel } from './PaginateParametro.model';
+import { PaginateRelacionModel } from './PaginateRelacion.model';
+
 export class PaginateListModel {
   public page: number;
   public size: number;
 
-  public paginateParametersList: PaginateParametersModel[] = [];
-  public orderFieldsList: PaginateOrderModel[] = [];
+  public parametros: PaginateParametroModel[] = [];
+  public filtros: PaginateFiltroModel[][] = [];
+  public ordenes: PaginateOrdenModel[] = [];
+  public relaciones: PaginateRelacionModel[] = [];
 
-  constructor(parPage: number = 0, parSize: number = 10) {
-    this.page = parPage;
-    this.size = parSize;
+  constructor(page: number = 1, size: number = 10) {
+    this.page = page;
+    this.size = size;
   }
 
-  /**
-   * Elimina todos los parametros
-   */
-  public clearParameters(): boolean {
-    try {
-      this.paginateParametersList = [];
-      return true;
-    } catch (ex) {
-      return false;
-    }
-  }
-
-  /**
-   * Elimina todos los orderFields
-   */
-  public clearOrderFields(): boolean {
-    try {
-      this.orderFieldsList = [];
-      return true;
-    } catch (ex) {
-      return false;
-    }
-  }
-
-  public addParameter(
-    parFieldName: string,
-    parValue: string,
-    parOperation: string = '='
-  ) {
-    const parameter: PaginateParametersModel = new PaginateParametersModel(
-      parFieldName,
-      parValue,
-      parOperation
-    );
-    //Busca el parametro, si es igual, lo reemplaza
-    for (let par of this.paginateParametersList) {
-      if (par.name === parFieldName) {
-        par.operation = parOperation;
-        par.value = parValue;
-        return; //Existe
+  // Agrega un parametro, si existe lo edita
+  public addParametro(nombre: string, valor: string) {
+    const parameter = new PaginateParametroModel(nombre, valor);
+    for (let par of this.parametros) {
+      if (par.nombre === nombre) {
+        par.valor = valor;
+        return;
       }
     }
-
-    //No existe: Agregar
-    this.paginateParametersList.push(parameter);
+    this.parametros.push(parameter);
   }
 
-  public addOrderField(parFieldName: string, parOrderType: string = 'asc') {
-    const orderField: PaginateOrderModel = new PaginateOrderModel(
-      parFieldName,
-      parOrderType
+  // Agrega un filtro, si existe lo edita
+  public addFiltro(
+    tabla: string,
+    columna: string,
+    operacion: string,
+    valor: string
+  ) {
+    const filtro = new PaginateFiltroModel(tabla, columna, operacion, valor);
+    this.filtros.push([filtro]);
+  }
+
+  // Todos los filtros se agregan con un AND entre ellos
+  public addFiltrosAnd(filtros: PaginateFiltroModel[]) {
+    for (const filtro of filtros) {
+      this.filtros.push([filtro]);
+    }
+  }
+
+  // Todos los filtros se agregan con un OR entre ellos
+  public addFiltrosOr(filtros: PaginateFiltroModel[]) {
+    this.filtros.push(filtros);
+  }
+
+  // Agrega un orden. La prioridad la tienen los primeros agregados
+  public addOrden(
+    tabla: string = 't',
+    columna: string,
+    direccion: 'asc' | 'desc' = 'asc'
+  ) {
+    this.ordenes.push(new PaginateOrdenModel(tabla, columna, direccion));
+  }
+
+  // Agrega una relacion
+  public addRelacion(
+    tipo: 'inner' | 'left',
+    hastaTabla: string,
+    hastaColumna: string,
+    desdeTabla: string,
+    desdeColumna: string
+  ) {
+    this.relaciones.push(
+      new PaginateRelacionModel(
+        tipo,
+        hastaTabla,
+        hastaColumna,
+        desdeTabla,
+        desdeColumna
+      )
     );
-    this.orderFieldsList.push(orderField);
   }
 }
